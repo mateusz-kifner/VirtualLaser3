@@ -1,0 +1,43 @@
+name: "Release"
+on: workflow_dispatch
+
+env:
+  GODOT_VERSION: 3.4.0
+  EXPORT_NAME: VirtualLaser2
+
+jobs:
+  export-windows:
+    name: Windows Export
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:3.4.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Setup
+        run: |
+          ls
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+    
+      - name: Windows Build
+        run: |
+          mkdir -v -p build/windows
+          ls
+          godot -v --export "Windows Desktop" build/windows/$EXPORT_NAME.exe
+      - name: Create release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: build/windows
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: windows
+          path: build/windows
+
