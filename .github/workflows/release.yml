@@ -3,7 +3,7 @@ on: workflow_dispatch
 
 env:
   GODOT_VERSION: 3.4
-  EXPORT_NAME: VirtualLaser2
+  EXPORT_NAME: VirtualLaser3
 
 jobs:
   export-windows:
