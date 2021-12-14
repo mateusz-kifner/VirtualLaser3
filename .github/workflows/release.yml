@@ -28,7 +28,7 @@ jobs:
           ls
           godot -v --export "Windows Desktop" build/windows/$EXPORT_NAME.exe
       - name: Create release
-        uses: "marvinpinto/action-automatic-releases@latest"
+        uses: "marvinpinto/action-automatic-releases@1.2.0"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
