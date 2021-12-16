@@ -31,6 +31,8 @@ func init(multiplayer_client,isHost):
 		OS.window_resizable = false
 		OS.window_borderless = true
 		OS.set_window_always_on_top(true)
+		OS.window_size = Vector2(16,16)
+		
 		position_offset = Vector2(8,8)
 
 func _process(delta: float) -> void:
