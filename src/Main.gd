@@ -104,3 +104,5 @@ func send_data(data):
 func _on_isHost_pressed() -> void:
 	isHost = not(isHost)
 	$Connect/PanelContainer/MarginContainer/VBoxContainer/isHost.text = "isHost: "+str(isHost)
+
+

@@ -16,9 +16,11 @@ var is_host = false
 var currentId =0
 
 
+
 func _ready() -> void:
 	hide()
 	set_process(false)
+	
 	
 func init(multiplayer_client,isHost):
 	client = multiplayer_client
@@ -34,6 +36,8 @@ func init(multiplayer_client,isHost):
 		OS.window_size = Vector2(16,16)
 		
 		position_offset = Vector2(8,8)
+	if (is_host):
+		$Timer.start()
 
 func _process(delta: float) -> void:
 	if (is_host):
@@ -45,6 +49,9 @@ func _process(delta: float) -> void:
 				show_type(0)
 			else:
 				type = max_type
+		
+		
+			
 				
 		if is_active:
 			global_mouse_pos = get_global_mouse_position()
@@ -95,3 +102,21 @@ func _on_ChangeType_pressed() -> void:
 func _on_Quit_pressed() -> void:
 	type = 255
 	last_global_pos += Vector2.ONE
+
+
+func _on_Timer_timeout():
+	print("refersh")
+	var data = {
+		"pos":Vector2(0,0),
+		"screen":viewport_size,
+		"type":type+1
+	}
+	if type >125:
+		type = 0
+	client.put_var(data)
+	data["type"] = type
+	if type >125:
+		type = 0
+	yield(get_tree().create_timer(1),"timeout")
+	client.put_var(data)
+	$Timer.start()

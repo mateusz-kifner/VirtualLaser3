@@ -158,6 +158,9 @@ custom_styles/normal = SubResource( 4 )
 shortcut = SubResource( 6 )
 text = "X"
 
+[node name="Timer" type="Timer" parent="Laser"]
+wait_time = 10.0
+
 [node name="Connect" type="CenterContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -248,5 +251,6 @@ __meta__ = {
 
 [connection signal="pressed" from="Laser/HBoxContainer/ChangeType" to="Laser" method="_on_ChangeType_pressed"]
 [connection signal="pressed" from="Laser/HBoxContainer/Quit" to="Laser" method="_on_Quit_pressed"]
+[connection signal="timeout" from="Laser/Timer" to="Laser" method="_on_Timer_timeout"]
 [connection signal="pressed" from="Connect/PanelContainer/MarginContainer/VBoxContainer/isHost" to="." method="_on_isHost_pressed"]
 [connection signal="pressed" from="Connect/PanelContainer/MarginContainer/VBoxContainer/Connect" to="." method="connect_ws"]
